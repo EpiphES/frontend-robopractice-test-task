@@ -61,7 +61,7 @@ function UsersTable({users, numberOfDays}) {
           users={paginatedUsers}
           numberOfDays={numberOfDays}
       />
-      <Container fluid="lg" className="d-flex justify-content-evenly flex-wrap fixed-bottom pb-3">
+      <Container fluid="lg" className="d-flex justify-content-evenly flex-wrap fixed-bottom py-2 bg-light">
         <div className="d-flex">
           <span className='px-3 align-self-center '>Rows per page:</span>
           <Form.Select aria-label="rows per page select" onChange={changeRowsPerPage} className="w-auto me-3" size="sm">
