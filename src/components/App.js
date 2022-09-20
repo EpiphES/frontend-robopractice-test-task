@@ -59,7 +59,7 @@ function App() {
   function convertMinutesToTimeString(numberOfMinutes) {
     const minutes = numberOfMinutes % 60
     const hours = (numberOfMinutes - minutes) / 60
-    return `${hours} : ${minutes}`
+    return `${hours}:${minutes}`
   }
 
   
