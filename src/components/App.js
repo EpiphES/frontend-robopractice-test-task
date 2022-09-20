@@ -4,24 +4,36 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import api from '../utils/api';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import Image from 'react-bootstrap/Image'
 
 import closeIcon from '../images/close.svg';
+
+import UsersTable from './UsersTable';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([]);
   const [searchedUsers, setSearchedUsers] = useState(users);
+  const [numberOfDays, setNumberOfDays] = useState(0);
 
   function handleInputChange(e) {
     setSearchQuery(e.target.value);
   }
 
-  function loadUsersData() {
+  function loadData() {
     api.getUsersData()
     .then(data => {
       setUsers(data);
+      const daysInMonth = getNumberOfDays(data)
+      setNumberOfDays(daysInMonth);      
     })
     .catch(err => console.log(err));
+  }
+
+  function getNumberOfDays(data) {
+    const [year, month, day] = data[0].Days[0].Date.split('-');
+    return new Date(+year, +month, 0).getDate();    
   }
   
   function resetInput() {
@@ -29,7 +41,7 @@ function App() {
   }
   
   useEffect(() => {
-    loadUsersData();
+    loadData();
   }, [])
 
   useEffect(() => {
@@ -37,8 +49,6 @@ function App() {
     );       
   },[users, searchQuery]); 
   
-  console.log(searchedUsers);
-
   return (
     <div className="App">
       <Container fluid="md" className="py-3">
@@ -55,9 +65,20 @@ function App() {
             variant="outline-secondary" aria-label="reset input"
             onClick={() => resetInput()}
           >
-            <img src={closeIcon} alt="left arrow icon" centered />
+            <Image src={closeIcon} alt="left arrow icon" fluid />
           </Button>
-        </InputGroup>       
+        </InputGroup>
+
+        {
+          searchedUsers.length > 0 
+          ? <UsersTable
+          users={searchedUsers}
+          numberOfDays={numberOfDays}
+          /> 
+          : <Alert variant='primary'>
+          No Users Found
+        </Alert>
+        }
       </Container>     
     </div>
   );
