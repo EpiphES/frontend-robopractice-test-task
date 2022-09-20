@@ -24,6 +24,17 @@ function App() {
   function loadData() {
     api.getUsersData()
     .then(data => {
+      data.map((user) => {
+      const totalTimeInt = user.Days.reduce((prevVal, day) => {
+        const startTime = convertTimeToMinutes(day.Start);
+        const endTime = convertTimeToMinutes(day.End);
+        const interval = endTime - startTime;     
+        day.TimePeriod = convertMinutesToTimeString(interval);
+        return prevVal += interval;
+      }, 0);
+      return user.TotalTime = convertMinutesToTimeString(totalTimeInt);
+      })
+
       setUsers(data);
       const daysInMonth = getNumberOfDays(data)
       setNumberOfDays(daysInMonth);      
@@ -39,6 +50,19 @@ function App() {
   function resetInput() {
     setSearchQuery("");
   }
+
+  function convertTimeToMinutes(timeString) {
+    const [hours, minutes] = timeString.split('-');
+    return +hours * 60 + (+minutes);
+  }
+  
+  function convertMinutesToTimeString(numberOfMinutes) {
+    const minutes = numberOfMinutes % 60
+    const hours = (numberOfMinutes - minutes) / 60
+    return `${hours} : ${minutes}`
+  }
+
+  
   
   useEffect(() => {
     loadData();
