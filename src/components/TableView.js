@@ -37,7 +37,7 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
   }
 
   return (
-    <Table responsive striped bordered hover  className="align-middle">
+    <Table responsive striped bordered hover  className="align-middle" style={{marginBottom: "20px"}}>
       <thead>
         <tr >
           <th 

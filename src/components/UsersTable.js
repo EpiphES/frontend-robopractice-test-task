@@ -56,20 +56,15 @@ function UsersTable({users, numberOfDays}) {
       const sortedData = users.sort((user1, user2) => user1[sortKey]?.localeCompare(user2[sortKey]));
       
       sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());
-    }
-  }, [sortDirection, sortKey, users])
-
-  useEffect(() => {
-    
-    setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
+      setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
     setLastRowNumber(currentPage * rowsPerPage > totalUsers ? totalUsers : currentPage * rowsPerPage );
     const firstRowIndex = firstRowNumber - 1;   
         
     setPaginatedUsers(sortedUsers.slice(firstRowIndex, lastRowNumber));
-    
-  }, [users, sortedUsers, currentPage, rowsPerPage, firstRowNumber, lastRowNumber, totalUsers]);
+      
+    }
+  }, [currentPage, firstRowNumber, lastRowNumber, rowsPerPage, sortDirection, sortKey, sortedUsers, totalUsers, users])
 
-  
   return (
     <>
       <TableView
