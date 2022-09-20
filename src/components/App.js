@@ -5,14 +5,25 @@ import api from '../utils/api';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [users, setUsers] = useState([]);
 
   function handleInputChange(e) {
     setSearchQuery(e.target.value);
   }
 
-  api.getUsersData()
-    .then(res => console.log(res))
+  function loadUsersData() {
+    api.getUsersData()
+    .then(data => {
+      setUsers(data);
+    })
     .catch(err => console.log(err));
+  }  
+  
+  useEffect(() => {
+    loadUsersData();
+  }, [])
+
+  console.log(users);
 
   return (
     <div className="App">
