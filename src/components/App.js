@@ -90,7 +90,7 @@ function App() {
             variant="outline-secondary" aria-label="reset input"
             onClick={() => resetInput()}
           >
-            <Image src={closeIcon} alt="left arrow icon" fluid />
+            <Image src={closeIcon} alt="close icon" fluid />
           </Button>
         </InputGroup>
 

@@ -1,5 +1,9 @@
+import { Image } from "react-bootstrap";
 import Table from "react-bootstrap/Table"
-function TableView({users, numberOfDays}) {
+import upArrowIcon from '../images/chevron-up.svg';
+import downArrowIcon from '../images/chevron-down.svg';
+
+function TableView({users, numberOfDays, handleSort, sortDirection }) {
   const numberOfDaysArr = new Array(numberOfDays).fill(undefined).map((_, ind) => ind+1);
   
 
@@ -8,7 +12,7 @@ function TableView({users, numberOfDays}) {
       const cellData = user.Days.find((day) => {
         return new Date(day.Date).getDate() === item; 
       });
-      return (<td key={item}>{cellData? cellData.TimePeriod : 0}</td>) 
+      return (<td key={item} >{cellData? cellData.TimePeriod : 0}</td>) 
     })    
   }
   
@@ -16,19 +20,38 @@ function TableView({users, numberOfDays}) {
     const innerRows = getInnerRowElements(user);
     return (
       <tr key={user.id}>
-        <td>{user.Fullname}</td>
+        <td 
+        style={{position: "sticky", left: "0"}} className="bg-light"
+        
+        >
+          {user.Fullname}
+        </td>
         {innerRows}
-        <td>{user.TotalTime}</td>
+        <td style={{position: "sticky", right: "0" }} className="bg-light">{user.TotalTime}</td>
       </tr>
     );
   });
+
+  function onNameClick() {
+    handleSort('Fullname');
+  }
+
   return (
-    <Table responsive striped bordered hover>
+    <Table responsive striped bordered hover  className="align-middle">
       <thead>
         <tr >
-          <th className="w-auto">User</th>
+          <th 
+          style={{position: "sticky", left: "0"}} className="bg-light"
+          onClick={onNameClick}
+          >
+            User 
+            { sortDirection ?
+              <Image src={downArrowIcon} alt="up arrow icon" className="ms-3"/> 
+              : <Image src={upArrowIcon} alt="up arrow icon" className="ms-3"/>
+            }            
+          </th>
           {numberOfDaysArr.map((item) => <th key={item}>{item}</th>)}
-          <th>Monthly</th>
+          <th style={{position: "sticky", right: "0" }} className="bg-light">Monthly</th>
         </tr>
       </thead>
       <tbody>

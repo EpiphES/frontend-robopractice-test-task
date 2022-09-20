@@ -17,6 +17,8 @@ function UsersTable({users, numberOfDays}) {
 
   const [firstRowNumber, setFirstRowNumber] = useState(1);
   const [lastRowNumber, setLastRowNumber] = useState(10);
+  const [sortKey, setSortKey] = useState('');
+  const [sortDirection, setSortDirection] = useState(true);
 
   function onPreviousClick() {
     setCurrentPage((prevState) => prevState - 1);
@@ -38,21 +40,34 @@ function UsersTable({users, numberOfDays}) {
     setRowsPerPage(+e.target.value);
   }
 
-  useEffect(() => {
-    
-    setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
-    setLastRowNumber(currentPage * rowsPerPage > totalUsers ? totalUsers : currentPage * rowsPerPage );
-    const firstRowIndex = firstRowNumber - 1;
-    
-    setSortedUsers(users);
-        
-    setPaginatedUsers(sortedUsers.slice(firstRowIndex, lastRowNumber));
-    
-  }, [users, sortedUsers, currentPage, rowsPerPage, firstRowNumber, lastRowNumber, totalUsers]);
+  function changeSortOptions(key) {
+    setSortKey(key);
+    setSortDirection(prevVal => !prevVal);
+  };
+
+  
 
   useEffect(() => {
     setCurrentPage(1);
   }, [totalUsers, rowsPerPage])
+
+  useEffect(() => {
+    if(sortKey) {
+      const sortedData = users.sort((user1, user2) => user1[sortKey]?.localeCompare(user2[sortKey]));
+      
+      sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());
+    }
+  }, [sortDirection, sortKey, users])
+
+  useEffect(() => {
+    
+    setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
+    setLastRowNumber(currentPage * rowsPerPage > totalUsers ? totalUsers : currentPage * rowsPerPage );
+    const firstRowIndex = firstRowNumber - 1;   
+        
+    setPaginatedUsers(sortedUsers.slice(firstRowIndex, lastRowNumber));
+    
+  }, [users, sortedUsers, currentPage, rowsPerPage, firstRowNumber, lastRowNumber, totalUsers]);
 
   
   return (
@@ -60,6 +75,8 @@ function UsersTable({users, numberOfDays}) {
       <TableView
           users={paginatedUsers}
           numberOfDays={numberOfDays}
+          handleSort={changeSortOptions}
+          sortDirection={sortDirection}
       />
       <Container fluid="lg" className="d-flex justify-content-evenly flex-wrap fixed-bottom py-2 bg-light">
         <div className="d-flex">
@@ -71,29 +88,29 @@ function UsersTable({users, numberOfDays}) {
               <option value="25">25</option>
               <option value="30">30</option>
             </Form.Select>
-        </div>
-      <Pagination size="sm m-0">
-          
-          <Pagination.First 
-            disabled={currentPage === 1}
-            onClick={toFirstClick}
-          />
-          <Pagination.Prev 
-            disabled={currentPage === 1}
-            onClick={onPreviousClick}
-          />
-          <span className='px-3 align-self-center '>
-            {firstRowNumber} - {lastRowNumber} of {totalUsers}
-          </span>
-          <Pagination.Next 
-            disabled={currentPage === totalPages}
-            onClick={onNextClick}
-          />
-          <Pagination.Last 
-            disabled={currentPage === totalPages}
-            onClick={onLastClick}
-          />
-        </Pagination> 
+          </div>
+          <Pagination size="sm m-0">
+            
+            <Pagination.First 
+              disabled={currentPage === 1}
+              onClick={toFirstClick}
+            />
+            <Pagination.Prev 
+              disabled={currentPage === 1}
+              onClick={onPreviousClick}
+            />
+            <span className='px-3 align-self-center '>
+              {firstRowNumber} - {lastRowNumber} of {totalUsers}
+            </span>
+            <Pagination.Next 
+              disabled={currentPage === totalPages}
+              onClick={onNextClick}
+            />
+            <Pagination.Last 
+              disabled={currentPage === totalPages}
+              onClick={onLastClick}
+            />
+          </Pagination> 
         </Container>  
     </>
   );
