@@ -3,8 +3,10 @@ const app = express()
 const port = 8080
 
 app.get('/api/users', (req, res) => {
-  res.send(
-      require('./data.json')
+  res
+    .append('Access-Control-Allow-Origin', ['*'])
+    .send(
+        require('./data.json')
   )
 })
 

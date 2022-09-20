@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import api from '../utils/api';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -8,6 +9,10 @@ function App() {
   function handleInputChange(e) {
     setSearchQuery(e.target.value);
   }
+
+  api.getUsersData()
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 
   return (
     <div className="App">
