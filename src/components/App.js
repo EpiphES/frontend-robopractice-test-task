@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import api from '../utils/api';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 
 import closeIcon from '../images/close.svg';
 
@@ -48,11 +48,11 @@ function App() {
     setSearchedUsers(users.filter(user => user.Fullname.toLowerCase().includes(searchQuery.toLowerCase()))
     );       
   },[users, searchQuery]); 
-  
+
   return (
     <div className="App">
-      <Container fluid="md" className="py-3">
-        <InputGroup className="mb-3">
+      <Container fluid="lg" className="py-3">
+        <InputGroup className="mb-3 w-50" size="sm">
           <Form.Control
                 type="text"
                 placeholder="Search users"
@@ -61,6 +61,7 @@ function App() {
                 value={searchQuery}
                 onInput={(e) => handleInputChange(e)}
           />
+          
           <Button 
             variant="outline-secondary" aria-label="reset input"
             onClick={() => resetInput()}
@@ -85,4 +86,4 @@ function App() {
 
 }
 
-export default App
+export default App;

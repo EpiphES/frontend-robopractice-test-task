@@ -1,15 +1,15 @@
 import Table from "react-bootstrap/Table"
 function TableView({users, numberOfDays}) {
   return (
-    <Table responsive >
-      {/* <thead className="sticky-top bg-light">
+    <Table responsive striped bordered hover>
+      <thead>
         <tr >
-          <th style={{position: "sticky", left: "0" }} className="bg-light">User</th>
-          {new Array(days).fill(undefined).map((item,ind) => <th className="" key={ind}>{ind + 1}</th>)}
-          <th style={{position: "sticky", right: "0" }} className="bg-light">Monthly total</th>
+          <th>User</th>
+          {new Array(numberOfDays).fill(undefined).map((_, ind) => <th className="" key={ind}>{ind + 1}</th>)}
+          <th>Monthly</th>
         </tr>
       </thead>
-      <tbody>
+      {/* <tbody>
         {rowElements}
       </tbody> */}
     </Table> 
