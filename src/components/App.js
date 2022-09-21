@@ -6,6 +6,7 @@ import api from '../utils/api';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Image from 'react-bootstrap/Image';
+import Spinner from 'react-bootstrap/Spinner';
 
 import closeIcon from '../images/close.svg';
 
@@ -16,12 +17,14 @@ function App() {
   const [users, setUsers] = useState([]);
   const [searchedUsers, setSearchedUsers] = useState(users);
   const [numberOfDays, setNumberOfDays] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleInputChange(e) {
     setSearchQuery(e.target.value);
   }
 
   function loadData() {
+    setIsLoading(true);
     api.getUsersData()
     .then(data => {
       data.map((user) => {
@@ -40,7 +43,8 @@ function App() {
       const daysInMonth = getNumberOfDays(data)
       setNumberOfDays(daysInMonth);      
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => {setIsLoading(false)})
   }
 
   function getNumberOfDays(data) {
@@ -56,14 +60,6 @@ function App() {
     const [hours, minutes] = timeString.split('-');
     return +hours * 60 + (+minutes);
   }
-  
-  function convertMinutesToTimeString(numberOfMinutes) {
-    const minutes = numberOfMinutes % 60
-    const hours = (numberOfMinutes - minutes) / 60
-    return `${hours}:${minutes}`
-  }
-
-  
   
   useEffect(() => {
     loadData();
@@ -96,8 +92,16 @@ function App() {
         </InputGroup>
 
         {
-          searchedUsers.length > 0 
-          ? <UsersTable
+          isLoading ?
+          <Spinner
+            animation="border"
+            variant="primary"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner> 
+          : searchedUsers.length > 0 ?
+          <UsersTable
           users={searchedUsers}
           numberOfDays={numberOfDays}
           /> 

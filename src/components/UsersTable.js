@@ -82,38 +82,38 @@ function UsersTable({users, numberOfDays}) {
       />
       <Container fluid="lg" className="d-flex justify-content-evenly flex-wrap fixed-bottom py-2 bg-light">
         <div className="d-flex">
-          <span className='px-3 align-self-center '>Rows per page:</span>
-          <Form.Select aria-label="rows per page select" onChange={changeRowsPerPage} className="w-auto me-3" size="sm">
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
-              <option value="30">30</option>
-            </Form.Select>
-          </div>
-          <Pagination size="sm m-0">
-            
-            <Pagination.First 
-              disabled={currentPage === 1}
-              onClick={toFirstClick}
-            />
-            <Pagination.Prev 
-              disabled={currentPage === 1}
-              onClick={onPreviousClick}
-            />
-            <span className='px-3 align-self-center '>
-              {firstRowNumber} - {lastRowNumber} of {totalUsers}
-            </span>
-            <Pagination.Next 
-              disabled={currentPage === totalPages}
-              onClick={onNextClick}
-            />
-            <Pagination.Last 
-              disabled={currentPage === totalPages}
-              onClick={onLastClick}
-            />
-          </Pagination> 
-        </Container>  
+        <span className='px-3 align-self-center '>Rows per page:</span>
+        <Form.Select aria-label="rows per page select" onChange={changeRowsPerPage} className="w-auto me-3" size="sm">
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+          </Form.Select>
+        </div>
+        <Pagination size="sm m-0">
+          
+          <Pagination.First 
+            disabled={currentPage === 1}
+            onClick={toFirstClick}
+          />
+          <Pagination.Prev 
+            disabled={currentPage === 1}
+            onClick={onPreviousClick}
+          />
+          <span className='px-3 align-self-center '>
+            {firstRowNumber} - {lastRowNumber} of {totalUsers}
+          </span>
+          <Pagination.Next 
+            disabled={currentPage === totalPages}
+            onClick={onNextClick}
+          />
+          <Pagination.Last 
+            disabled={currentPage === totalPages}
+            onClick={onLastClick}
+          />
+        </Pagination> 
+      </Container>  
     </>
   );
 }
