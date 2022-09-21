@@ -62,8 +62,7 @@ function UsersTable({users, numberOfDays}) {
         return (user1.Days.find(day => day.Num === +sortKey)?.TimePeriod || 0) -  (user2.Days.find(day => day.Num === +sortKey)?.TimePeriod || 0);
       })
       
-      sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());
-      
+      sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());      
     } 
     setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
     setLastRowNumber(currentPage * rowsPerPage > totalUsers ? totalUsers : currentPage * rowsPerPage );
@@ -84,7 +83,8 @@ function UsersTable({users, numberOfDays}) {
         <div className="d-flex">
         <span className='px-3 align-self-center '>Rows per page:</span>
         <Form.Select aria-label="rows per page select" onChange={changeRowsPerPage} className="w-auto me-3" size="sm">
-            <option value="10">10</option>
+            <option value="5">5</option>
+            <option selected value="10">10</option>
             <option value="15">15</option>
             <option value="20">20</option>
             <option value="25">25</option>
