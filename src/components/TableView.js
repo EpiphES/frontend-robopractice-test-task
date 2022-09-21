@@ -21,13 +21,14 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
     return (
       <tr key={user.id}>
         <td 
-        style={{position: "sticky", left: "0"}} className="bg-light"
+        style={{position: "sticky", left: "0"}} className="table-primary"
         
+
         >
           {user.Fullname}
         </td>
         {innerRows}
-        <td style={{position: "sticky", right: "0" }} className="bg-light">
+        <td style={{position: "sticky", right: "0" }} className="table-primary">
           {convertMinutesToTimeString(user.TotalTime)}</td>
       </tr>
     );
@@ -54,10 +55,10 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
 
   return (
     <Table responsive striped bordered hover  className="align-middle" style={{marginBottom: "20px"}}>
-      <thead>
-        <tr >
+      <thead >
+        <tr className="table-success">
           <th 
-          style={{position: "sticky", left: "0"}} className="bg-light"
+          style={{position: "sticky", left: "0"}} className="table-primary"
           onClick={onNameClick}
           >
             User 
@@ -68,7 +69,7 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
           </th>
           {numberOfDaysArr.map((item) => <th key={item} onClick={onDateClick}>{item}</th>)}
           <th 
-          style={{position: "sticky", right: "0" }} className="bg-light"
+          style={{position: "sticky", right: "0" }} className="table-primary"
           onClick={onMonthlyClick}
           >Monthly</th>
         </tr>
