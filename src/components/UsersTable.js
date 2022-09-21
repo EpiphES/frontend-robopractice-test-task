@@ -51,9 +51,6 @@ function UsersTable({users, numberOfDays}) {
   }, [totalUsers, rowsPerPage])
 
   useEffect(() => {
-    console.log(sortKey);
-    
-
     if(sortKey) {
            
       const sortedData = 

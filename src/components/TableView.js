@@ -42,7 +42,6 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
   }
 
   function onDateClick(e) {
-    console.log(e.target);
     handleSort(e.target.textContent)
   }
 
