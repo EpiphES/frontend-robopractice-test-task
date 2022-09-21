@@ -72,8 +72,9 @@ function App() {
 
   return (
     <div className="App">
-      <Container fluid="lg" className="py-3">
-        <InputGroup className="mb-3 w-50" size="sm">
+      <Container fluid="lg" className="py-3" >
+        
+        <InputGroup className="mb-3 w-50" size="sm" >
           <Form.Control
                 type="text"
                 placeholder="Search users"
@@ -109,6 +110,7 @@ function App() {
           No Users Found
         </Alert>
         }
+        
       </Container>     
     </div>
   );

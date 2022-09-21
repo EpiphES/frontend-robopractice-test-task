@@ -39,11 +39,12 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
   }
 
   function onMonthlyClick() {
-    handleSort('TotalTime')
+    handleSort('TotalTime');
   }
 
   function onDateClick(e) {
-    handleSort(e.target.textContent)
+    handleSort(e.target.textContent);
+    
   }
 
   function convertMinutesToTimeString(numberOfMinutes) {
@@ -54,11 +55,11 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
 
 
   return (
-    <Table responsive striped bordered hover  className="align-middle" style={{marginBottom: "20px"}}>
+    <Table responsive striped bordered hover  className="align-middle table-light" style={{marginBottom: "30px"}}>
       <thead >
         <tr className="table-success">
           <th 
-          style={{position: "sticky", left: "0"}} className="table-primary"
+          style={{position: "sticky", left: "0", cursor: "pointer", minWidth: "85px"}} className="table-primary"
           onClick={onNameClick}
           >
             User 
@@ -67,9 +68,9 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
               : <Image src={upArrowIcon} alt="up arrow icon" className="ms-3"/>
             }            
           </th>
-          {numberOfDaysArr.map((item) => <th key={item} onClick={onDateClick}>{item}</th>)}
+          {numberOfDaysArr.map((item) => <th key={item} onClick={onDateClick} style={{ cursor: "pointer"}}>{item}</th>)}
           <th 
-          style={{position: "sticky", right: "0" }} className="table-primary"
+          style={{position: "sticky", right: "0", cursor: "pointer" }} className="table-primary"
           onClick={onMonthlyClick}
           >Monthly</th>
         </tr>
