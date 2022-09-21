@@ -45,24 +45,25 @@ function UsersTable({users, numberOfDays}) {
     setSortDirection(prevVal => !prevVal);
   };
 
-  
-
   useEffect(() => {
     setCurrentPage(1);
   }, [totalUsers, rowsPerPage])
 
   useEffect(() => {
     if(sortKey) {
-      const sortedData = users.sort((user1, user2) => user1[sortKey]?.localeCompare(user2[sortKey]));
+      console.log(typeof sortKey);
+      const sortedData = 
+      sortKey === 'Fullname' ? 
+      users.sort((user1, user2) => user1[sortKey]?.localeCompare(user2[sortKey])) :
+      users.sort((user1, user2) => user1[sortKey]-(user2[sortKey]));
       
       sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());
       setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
+    }
     setLastRowNumber(currentPage * rowsPerPage > totalUsers ? totalUsers : currentPage * rowsPerPage );
     const firstRowIndex = firstRowNumber - 1;   
         
     setPaginatedUsers(sortedUsers.slice(firstRowIndex, lastRowNumber));
-      
-    }
   }, [currentPage, firstRowNumber, lastRowNumber, rowsPerPage, sortDirection, sortKey, sortedUsers, totalUsers, users])
 
   return (

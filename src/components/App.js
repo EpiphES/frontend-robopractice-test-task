@@ -32,7 +32,7 @@ function App() {
         day.TimePeriod = convertMinutesToTimeString(interval);
         return prevVal += interval;
       }, 0);
-      return user.TotalTime = convertMinutesToTimeString(totalTimeInt);
+      return user.TotalTime = totalTimeInt;
       })
 
       setUsers(data);

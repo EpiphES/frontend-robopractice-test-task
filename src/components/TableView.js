@@ -27,7 +27,8 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
           {user.Fullname}
         </td>
         {innerRows}
-        <td style={{position: "sticky", right: "0" }} className="bg-light">{user.TotalTime}</td>
+        <td style={{position: "sticky", right: "0" }} className="bg-light">
+          {convertMinutesToTimeString(user.TotalTime)}</td>
       </tr>
     );
   });
@@ -35,6 +36,17 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
   function onNameClick() {
     handleSort('Fullname');
   }
+
+  function onMonthlyClick() {
+    handleSort('TotalTime')
+  }
+
+  function convertMinutesToTimeString(numberOfMinutes) {
+    const minutes = numberOfMinutes % 60
+    const hours = (numberOfMinutes - minutes) / 60
+    return `${hours}:${minutes}`
+  }  
+
 
   return (
     <Table responsive striped bordered hover  className="align-middle" style={{marginBottom: "20px"}}>
@@ -51,7 +63,10 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
             }            
           </th>
           {numberOfDaysArr.map((item) => <th key={item}>{item}</th>)}
-          <th style={{position: "sticky", right: "0" }} className="bg-light">Monthly</th>
+          <th 
+          style={{position: "sticky", right: "0" }} className="bg-light"
+          onClick={onMonthlyClick}
+          >Monthly</th>
         </tr>
       </thead>
       <tbody>
