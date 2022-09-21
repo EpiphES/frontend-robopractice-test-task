@@ -64,7 +64,7 @@ function UsersTable({users, numberOfDays}) {
       
       sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());
       setFirstRowNumber((currentPage -1) * rowsPerPage + 1);
-    }
+    } else { setSortedUsers(users) }
     setLastRowNumber(currentPage * rowsPerPage > totalUsers ? totalUsers : currentPage * rowsPerPage );
     const firstRowIndex = firstRowNumber - 1;   
         
