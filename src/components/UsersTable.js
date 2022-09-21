@@ -5,6 +5,7 @@ import TableView from './TableView';
 import Pagination from 'react-bootstrap/Pagination';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import { InputGroup } from 'react-bootstrap';
 
 function UsersTable({users, numberOfDays}) {
   const [sortedUsers, setSortedUsers] = useState(users);
@@ -79,18 +80,18 @@ function UsersTable({users, numberOfDays}) {
           handleSort={changeSortOptions}
           sortDirection={sortDirection}
       />
-      <Container fluid="lg" className="d-flex justify-content-evenly flex-wrap fixed-bottom py-2 bg-primary text-light" >
-        <div className="d-flex">
-        <span className='px-3 align-self-center '>Rows per page:</span>
-        <Form.Select aria-label="rows per page select" onChange={changeRowsPerPage} className="w-auto me-3" size="sm">
+      <Container fluid="lg" className="d-flex justify-content-evenly flex-wrap fixed-bottom py-2 bg-secondary text-light" >
+        <InputGroup className="w-auto" size="sm">
+          <InputGroup.Text>Rows per page:</InputGroup.Text>
+          <Form.Select aria-label="rows per page select" onChange={changeRowsPerPage} className="w-auto me-3" size="sm" defaultValue="10">
             <option value="5">5</option>
-            <option selected value="10">10</option>
+            <option value="10">10</option>
             <option value="15">15</option>
             <option value="20">20</option>
             <option value="25">25</option>
             <option value="30">30</option>
           </Form.Select>
-        </div>
+        </InputGroup>
         <Pagination size="sm m-0" >
           
           <Pagination.First 
