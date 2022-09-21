@@ -41,6 +41,7 @@ function UsersTable({users, numberOfDays}) {
   }
 
   function changeSortOptions(key) {
+    
     setSortKey(key);
     setSortDirection(prevVal => !prevVal);
   };
@@ -50,12 +51,19 @@ function UsersTable({users, numberOfDays}) {
   }, [totalUsers, rowsPerPage])
 
   useEffect(() => {
+    console.log(sortKey);
+    
+
     if(sortKey) {
-      console.log(typeof sortKey);
+           
       const sortedData = 
       sortKey === 'Fullname' ? 
       users.sort((user1, user2) => user1[sortKey]?.localeCompare(user2[sortKey])) :
-      users.sort((user1, user2) => user1[sortKey]-(user2[sortKey]));
+      sortKey === 'TotalTime' ?
+      users.sort((user1, user2) => user1[sortKey]-(user2[sortKey])) :
+      users.sort((user1, user2) => {
+        return (user1.Days.find(day => day.Num === +sortKey)?.TimePeriod || 0) -  (user2.Days.find(day => day.Num === +sortKey)?.TimePeriod || 0);
+      })
       
       sortDirection ? setSortedUsers(sortedData) : setSortedUsers(sortedData.reverse());
       setFirstRowNumber((currentPage -1) * rowsPerPage + 1);

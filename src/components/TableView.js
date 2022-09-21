@@ -10,9 +10,9 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
   function getInnerRowElements(user) {
     return numberOfDaysArr.map((item) => {
       const cellData = user.Days.find((day) => {
-        return new Date(day.Date).getDate() === item; 
+        return day.Num === item; 
       });
-      return (<td key={item} >{cellData? cellData.TimePeriod : 0}</td>) 
+      return (<td key={item} >{cellData? convertMinutesToTimeString(cellData.TimePeriod) : 0}</td>) 
     })    
   }
   
@@ -41,6 +41,11 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
     handleSort('TotalTime')
   }
 
+  function onDateClick(e) {
+    console.log(e.target);
+    handleSort(e.target.textContent)
+  }
+
   function convertMinutesToTimeString(numberOfMinutes) {
     const minutes = numberOfMinutes % 60
     const hours = (numberOfMinutes - minutes) / 60
@@ -62,7 +67,7 @@ function TableView({users, numberOfDays, handleSort, sortDirection }) {
               : <Image src={upArrowIcon} alt="up arrow icon" className="ms-3"/>
             }            
           </th>
-          {numberOfDaysArr.map((item) => <th key={item}>{item}</th>)}
+          {numberOfDaysArr.map((item) => <th key={item} onClick={onDateClick}>{item}</th>)}
           <th 
           style={{position: "sticky", right: "0" }} className="bg-light"
           onClick={onMonthlyClick}

@@ -28,8 +28,9 @@ function App() {
       const totalTimeInt = user.Days.reduce((prevVal, day) => {
         const startTime = convertTimeToMinutes(day.Start);
         const endTime = convertTimeToMinutes(day.End);
-        const interval = endTime - startTime;     
-        day.TimePeriod = convertMinutesToTimeString(interval);
+        const interval = endTime - startTime;
+        day.Num = new Date(day.Date).getDate();    
+        day.TimePeriod = interval;
         return prevVal += interval;
       }, 0);
       return user.TotalTime = totalTimeInt;
